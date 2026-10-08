@@ -1,0 +1,27 @@
+{
+  "name": "ghostframe",
+  "version": "1.0.0",
+  "description": "GhostFrame - always-on-top overlay browser for use over games",
+  "author": "jamim",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "icon": "powershell -NoProfile -File build/make-icon.ps1",
+    "build": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.ghostframe.app",
+    "productName": "GhostFrame",
+    "files": ["main.js", "preload.js", "index.html", "renderer.js", "build/icon.png"],
+    "directories": { "output": "dist" },
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico",
+      "artifactName": "GhostFrame.exe"
+    }
+  }
+}

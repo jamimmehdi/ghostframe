@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>GhostFrame</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #111; color: #ddd; font: 12px system-ui, sans-serif; overflow: hidden; }
+    #bar { position: absolute; top: 0; left: 0; right: 0; height: 34px; background: #000; -webkit-app-region: drag; }
+    #controls { display: flex; align-items: center; gap: 4px; height: 100%; padding: 0 6px;
+                opacity: 0; pointer-events: none; transition: opacity .15s; }
+    body.hover #controls, body.focused #controls { opacity: 1; pointer-events: auto; }
+    #bar > * { -webkit-app-region: no-drag; }
+    button { background: #2a2a2e; color: #ddd; border: 0; border-radius: 4px; height: 24px; min-width: 26px; cursor: pointer; }
+    button:hover { background: #3a3a40; }
+    button.on { background: #c0392b; }
+    #url { flex: 1; min-width: 60px; height: 24px; border: 0; border-radius: 4px; padding: 0 8px; background: #2a2a2e; color: #eee; outline: none; }
+    #opacity { width: 70px; }
+    #drag { flex: 0 0 14px; height: 24px; -webkit-app-region: drag; cursor: move; opacity: .4; }
+    webview { position: absolute; top: 34px; left: 0; right: 0; bottom: 0; }
+    #hint { position: absolute; bottom: 4px; left: 8px; font-size: 10px; opacity: .0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div id="bar"><div id="controls">
+    <div id="drag">⋮⋮</div>
+    <button id="back" title="Back">◀</button>
+    <button id="fwd" title="Forward">▶</button>
+    <button id="reload" title="Reload">⟳</button>
+    <input id="url" placeholder="Search or enter URL" spellcheck="false" />
+    <input id="opacity" type="range" min="20" max="100" title="Opacity (Ctrl+Alt+↑/↓)" />
+    <button id="ct" title="Click-through (Ctrl+Alt+C to toggle back)">👻</button>
+    <button id="min" title="Minimize">–</button>
+    <button id="close" title="Quit (Ctrl+Alt+Q)">✕</button>
+  </div></div>
+  <webview id="view" src="https://www.youtube.com" partition="persist:overlay" allowpopups></webview>
+  <script src="renderer.js"></script>
+</body>
+</html>
